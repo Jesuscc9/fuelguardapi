@@ -97,6 +97,12 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
 ]
 
+SECURE_SSL_REDIRECT = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 ALLOWED_HOSTS = [
