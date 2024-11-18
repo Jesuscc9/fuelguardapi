@@ -39,6 +39,18 @@ class UserLoginSerializer(serializers.Serializer):
             return user
         raise serializers.ValidationError("Incorrect Credentials")
 
+class LogoutSerializer(serializers.Serializer):
+    refresh = serializers.CharField()  # Campo esperado en el cuerpo de la solicitud
+
+    def validate(self, attrs):
+        """
+        Valida que el token proporcionado sea correcto.
+        """
+        refresh = attrs.get("refresh")
+        if not refresh:
+            raise serializers.ValidationError("Refresh token is required")
+        return attrs
+
 class ProfileSerializer(CustomUserSerializer):
     """
     Serializer class to serialize the user Profile model
