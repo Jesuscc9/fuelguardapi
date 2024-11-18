@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     'drf_yasg',
     "users",
-    "FuelSensor"
+    "FuelSensor",
+    "corsheaders"
 ]
 
 REST_FRAMEWORK = {
@@ -91,6 +92,15 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Para pruebas locales
+    "http://10.0.2.2:8000",  # Para el emulador de Android (equivalente a localhost)
+    "https://fuelguardapi-production.up.railway.app",  # Backend en producción
+    "http://127.0.0.1:8000",  # Si pruebas desde localhost
 ]
 
 ROOT_URLCONF = "fuelguardapi.urls"
