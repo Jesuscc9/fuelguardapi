@@ -100,7 +100,16 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Para pruebas locales
     "http://10.0.2.2:8000",  # Para el emulador de Android (equivalente a localhost)
     "https://fuelguardapi-production.up.railway.app",  # Backend en producción
-    "http://127.0.0.1:8000",  # Si pruebas desde localhost
+    "http://127.0.0.1:8000",  # Si pruebas desde localhost,
+    "fuelguardapi-production.up.railway.app"
+]
+
+ALLOWED_HOSTS = [
+    "fuelguardapi-production.up.railway.app",
+    "http://localhost:3000",
+    "http://10.0.2.2:8000",
+    "http://127.0.0.1:8000",
+    "fuelguardapi-production.up.railway.app"
 ]
 
 ROOT_URLCONF = "fuelguardapi.urls"
