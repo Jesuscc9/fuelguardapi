@@ -105,12 +105,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-ALLOWED_HOSTS = [
-    "fuelguardapi-production.up.railway.app",
-    "localhost",
-    "10.0.2.2",
-    "127.0.0.1",
-]
+ALLOWED_HOSTS = ["*"]
 
 ROOT_URLCONF = "fuelguardapi.urls"
 
