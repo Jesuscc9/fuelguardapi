@@ -16,12 +16,13 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework.permissions import AllowAny
+from users.views import UserLoginAPIView, UserLogoutAPIView, UserLogoutAllAPIView
 
 # Configuración de drf-yasg para Swagger
 schema_view = get_schema_view(
@@ -33,15 +34,19 @@ schema_view = get_schema_view(
         license=openapi.License(name="MIT License"),
     ),
     public=True,
-    permission_classes=(AllowAny,),
+    permission_classes=[AllowAny],
 )
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("users/", include("users.urls", namespace="users")),
-    path("fuelguard/", include("FuelSensor.urls", namespace="FuelSensor")),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-
+    path("api/login/", UserLoginAPIView.as_view(), name="custom_login"),
+    path("accounts/login/", UserLoginAPIView.as_view(), name="custom_login"),
+    path("api/logout/", UserLogoutAPIView.as_view(), name="custom_logout"),
+    path("api/logoutall/", UserLogoutAllAPIView.as_view(), name="custom_logoutall"),
+    path("api/", include("FuelSensor.urls", namespace="FuelSensor")),
+    re_path(
+        r"^$", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"
+    ),
+    path("docs/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

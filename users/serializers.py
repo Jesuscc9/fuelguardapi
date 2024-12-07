@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 from .models import CustomUser, Profile
 
+
 class CustomUserSerializer(serializers.ModelSerializer):
     """
     Serializer class to serialize CustomUser model.
@@ -11,6 +12,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ("id", "username", "email")
+
 
 class UserRegisterationSerializer(serializers.ModelSerializer):
     """
@@ -24,6 +26,7 @@ class UserRegisterationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return CustomUser.objects.create_user(**validated_data)
+
 
 class UserLoginSerializer(serializers.Serializer):
     """
@@ -39,6 +42,7 @@ class UserLoginSerializer(serializers.Serializer):
             return user
         raise serializers.ValidationError("Incorrect Credentials")
 
+
 class LogoutSerializer(serializers.Serializer):
     refresh = serializers.CharField()  # Campo esperado en el cuerpo de la solicitud
 
@@ -51,6 +55,7 @@ class LogoutSerializer(serializers.Serializer):
             raise serializers.ValidationError("Refresh token is required")
         return attrs
 
+
 class ProfileSerializer(CustomUserSerializer):
     """
     Serializer class to serialize the user Profile model
@@ -59,6 +64,7 @@ class ProfileSerializer(CustomUserSerializer):
     class Meta:
         model = Profile
         fields = ("bio",)
+
 
 class ProfileAvatarSerializer(serializers.ModelSerializer):
     """
